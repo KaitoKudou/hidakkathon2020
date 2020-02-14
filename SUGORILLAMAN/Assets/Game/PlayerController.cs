@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     MapReader mapReader;
     Rigidbody2D rigid2D;
     GameObject playerInstance;
-    float moveForce = 780.6f;
+    //float moveForce = 780.6f;
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
     TextAsset map;
 
@@ -21,28 +21,23 @@ public class PlayerController : MonoBehaviour
     float maxDistance = 0.5f;
 
     //レイヤーマスク作成
-    //int layerMask = LayerMask.GetMask(new string[] {"soft", "hard"});
+    public LayerMask layerMaskHardBlock; // HardBlockレイヤーマスク
+    public LayerMask layerMaskSoftBlock; // SoftBlockレイヤーマスク
 
     // Start is called before the first frame update
     void Start()
     {
         //player = GameObject.Find("sugorillaman_front_01");
-        mapReader = GameObject.Find("MapCSVDirector").GetComponent<MapReader>();
-        //player = mapReader.GetPlayerIndtance();
-        playerInstance = GameObject.Find("sugorillaman_front_01(Clone)");
-        rigid2D = playerInstance.GetComponent<Rigidbody2D>();
+        //mapReader = GameObject.Find("MapCSVDirector").GetComponent<MapReader>();
+        //playerInstance = mapReader.GetPlayerIndtance();
+        //playerInstance = GameObject.Find("sugorillaman_front_01(Clone)");
+        this.playerInstance = GameObject.FindWithTag("player");
+        //rigid2D = playerInstance.GetComponent<Rigidbody2D>();
         //player = Instantiate(mapReader.playerPrefab) as GameObject;
 
         map = Resources.Load("map") as TextAsset; // Resouces下のCSV読み込み
         Debug.Log(map.text);
         StringReader reader = new StringReader(map.text);
-
-        // Rayの作成
-        
-        //ray_down = new Ray(playerInstance.transform.position, new Vector3(0, 1, 0));
-        //ray_left = new Ray(playerInstance.transform.position, new Vector3(-1, 0, 0));
-        //ray_right = new Ray(playerInstance.transform.position, new Vector3(1, 0, 0));
-        
 
         // , で分割しつつ一行ずつ読み込み
         // リストに追加していく
@@ -66,20 +61,28 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //rigid2D = playerInstance.GetComponent<Rigidbody2D>();
+        // Rayの作成
+        //第１引数：始点、第２引数：Rayの方向
         ray_up = new Ray2D(playerInstance.transform.position, playerInstance.transform.up * maxDistance);
+        ray_down = new Ray2D(playerInstance.transform.position, -playerInstance.transform.up * maxDistance);
+        ray_left = new Ray2D(playerInstance.transform.position, -playerInstance.transform.right * maxDistance);
+        ray_right = new Ray2D(playerInstance.transform.position, playerInstance.transform.right * maxDistance);
         Debug.DrawRay(ray_up.origin, ray_up.direction*maxDistance, Color.red, 1.0f);
+        Debug.DrawRay(ray_down.origin, ray_down.direction * maxDistance, Color.red, 1.0f);
+        Debug.DrawRay(ray_left.origin, ray_left.direction * maxDistance, Color.red, 1.0f);
+        Debug.DrawRay(ray_right.origin, ray_right.direction * maxDistance, Color.red, 1.0f);
     }
 
     public void UpButton()
     {
         hit = Physics2D.Raycast(ray_up.origin, ray_up.direction * maxDistance, maxDistance);
         //もしRayにオブジェクトが衝突したら
-        if (Physics2D.Raycast(ray_up.origin, ray_up.direction, maxDistance))
+        //Rayが当たったオブジェクトがhardblockだったら
+        if (Physics2D.Raycast(ray_up.origin, ray_up.direction, maxDistance, layerMaskHardBlock.value))
         {
             
-            //Rayが当たったオブジェクトのtagがhardblockだったら
             if (hit.collider)
             {
                 Debug.Log(hit.collider.gameObject.name);
@@ -91,6 +94,18 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hardblock以外に衝突");
             }
 
+        }
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがsoftblockだったら
+        else if (Physics2D.Raycast(ray_up.origin, ray_up.direction, maxDistance, layerMaskSoftBlock.value))
+        {
+            
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがsoftblockに当たった");
+
+            }
         }
         else
         {
@@ -107,21 +122,126 @@ public class PlayerController : MonoBehaviour
 
     public void DownButton()
     {
-        playerInstance.transform.Translate(0, -0.6f, 0);
+        hit = Physics2D.Raycast(ray_down.origin, ray_down.direction * maxDistance, maxDistance);
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがhardblockだったら
+        if (Physics2D.Raycast(ray_down.origin, ray_down.direction, maxDistance, layerMaskHardBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがhardblockに当たった");
+
+            }
+            else
+            {
+                Debug.Log("hardblock以外に衝突");
+            }
+
+        }
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがsoftblockだったら
+        else if (Physics2D.Raycast(ray_down.origin, ray_down.direction, maxDistance, layerMaskSoftBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがsoftblockに当たった");
+
+            }
+        }
+        else
+        {
+            Debug.Log("衝突していない");
+            playerInstance.transform.Translate(0, -0.6f, 0);
+        }
+        
         //transform.Translate(0, -0.6f, 0);
         Debug.Log("down");
     }
 
     public void LeftButton()
     {
-        playerInstance.transform.Translate(-0.6f, 0, 0);
+        hit = Physics2D.Raycast(ray_left.origin, ray_left.direction * maxDistance, maxDistance);
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがhardblockだったら
+        if (Physics2D.Raycast(ray_left.origin, ray_left.direction, maxDistance, layerMaskHardBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがhardblockに当たった");
+
+            }
+            else
+            {
+                Debug.Log("hardblock以外に衝突");
+            }
+
+        }
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがsoftblockだったら
+        else if (Physics2D.Raycast(ray_left.origin, ray_left.direction, maxDistance, layerMaskSoftBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがsoftblockに当たった");
+
+            }
+        }
+        else
+        {
+            Debug.Log("衝突していない");
+            playerInstance.transform.Translate(-0.6f, 0, 0);
+        }
+        
         //transform.Translate(-0.6f, 0, 0);
         Debug.Log("left");
     }
 
     public void RightButton()
     {
-        playerInstance.transform.Translate(0.6f, 0, 0);
+        hit = Physics2D.Raycast(ray_right.origin, ray_right.direction * maxDistance, maxDistance);
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがhardblockだったら
+        if (Physics2D.Raycast(ray_right.origin, ray_right.direction, maxDistance, layerMaskHardBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがhardblockに当たった");
+
+            }
+            else
+            {
+                Debug.Log("hardblock以外に衝突");
+            }
+
+        }
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがsoftblockだったら
+        else if (Physics2D.Raycast(ray_right.origin, ray_right.direction, maxDistance, layerMaskSoftBlock.value))
+        {
+
+            if (hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("Rayがsoftblockに当たった");
+
+            }
+        }
+        else
+        {
+            Debug.Log("衝突していない");
+            playerInstance.transform.Translate(0.6f, 0, 0);
+        }
+        
         //transform.Translate(0.6f, 0, 0);
         Debug.Log("right");
     }

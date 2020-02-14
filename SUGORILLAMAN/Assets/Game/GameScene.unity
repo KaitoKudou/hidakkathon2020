@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 1049423301}
   - component: {fileID: 1049423304}
   - component: {fileID: 1049423305}
+  - component: {fileID: 1049423306}
   m_Layer: 0
   m_Name: MapCSVDirector
   m_TagString: Untagged
@@ -503,6 +504,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702d752b1097143e1b709b634342d56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMaskHardBlock:
+    serializedVersion: 2
+    m_Bits: 512
+  layerMaskSoftBlock:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1049423306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049423300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9d373001b6e45a48e8afcf1c2a924a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 2755566198310845657, guid: 8d38a529e91f642139e119e2f401f65c,
+    type: 3}
 --- !u!1 &1095200262
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +809,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1135055083}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1049423306}
+        m_MethodName: BombButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1135055083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1237,6 +1269,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1918241535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1918241537}
+  - component: {fileID: 1918241536}
+  m_Layer: 0
+  m_Name: BombGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1918241536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918241535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9d373001b6e45a48e8afcf1c2a924a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 2755566198310845657, guid: 8d38a529e91f642139e119e2f401f65c,
+    type: 3}
+--- !u!4 &1918241537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918241535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.65458053, y: 1.4276415, z: -2007.8939}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022740978
 GameObject:

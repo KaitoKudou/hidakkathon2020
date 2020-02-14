@@ -15,7 +15,7 @@ public class MapReader : MonoBehaviour
     GameObject hamburgerman;
     GameObject playerInstance;
     Rigidbody2D rigid2D;
-    float moveForce = 10.6f;
+    //float moveForce = 10.6f;
     
 
     public GameObject hardblockPrefab;
@@ -30,12 +30,12 @@ public class MapReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hardblock = GameObject.Find("hardblock");
-        softblock = GameObject.Find("softblock");
-        appleman = GameObject.Find("appleman_wait_01");
-        bananaman = GameObject.Find("bananaman_wait_01");
-        sharkman = GameObject.Find("shark_left_01");
-        hamburgerman = GameObject.Find("hamburger_wait_01");
+        //hardblock = GameObject.Find("hardblock");
+        //softblock = GameObject.Find("softblock");
+        //appleman = GameObject.Find("appleman_wait_01");
+        //bananaman = GameObject.Find("bananaman_wait_01");
+        //sharkman = GameObject.Find("shark_left_01");
+        //hamburgerman = GameObject.Find("hamburger_wait_01");
         //player = GameObject.Find("sugorillaman_front_01");
 
         this.rigid2D = GetComponent<Rigidbody2D>();
