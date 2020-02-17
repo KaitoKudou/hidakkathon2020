@@ -78,8 +78,8 @@ public class BombController : MonoBehaviour
             }
 
             // 爆弾を削除
-            //Debug.Log(bombGenerator.GetBombCount() + "個の爆弾を置いた");
-            //bombGenerator.SetBombCount(-1);
+            BombGenerator.SetBombCount(-1);
+            Debug.Log(BombGenerator.GetBombCount() + "個の爆弾が爆破");
             Destroy(this.gameObject);
             //Debug.Log("爆発！！");
             //Debug.Log(bombGenerator.GetBombCount() + "個の爆弾を置いた");

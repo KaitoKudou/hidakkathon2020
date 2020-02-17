@@ -8,8 +8,8 @@ public class BombGenerator : MonoBehaviour
     GameObject playerInstance;
     public GameObject bombPrefab;
     Vector2 playerPos;
-    public int bombCount = 0; // Current
-    public int maxBombCount = 3; // Max
+    private static int bombCount = 0; // Current
+    private int maxBombCount = 3; // Max
     float span = 3.0f; 
     float delta = 0.0f;
 
@@ -28,9 +28,10 @@ public class BombGenerator : MonoBehaviour
 
         //Debug.Log(this.playerInstance);
 
-        this.delta += Time.deltaTime;
-        if (bombInstance)
+        
+        /*if (bombInstance)
         {
+            this.delta += Time.deltaTime;
             if (this.delta >= this.span)
             {
                 this.delta = 0;
@@ -39,21 +40,21 @@ public class BombGenerator : MonoBehaviour
                 Debug.Log(GetBombCount());
 
             }
-        }
+        }*/
     }
 
     // 現在の爆弾の個数を取得
-    public int GetBombCount()
+    public static int GetBombCount()
     {
         //Debug.Log("現在の爆弾を置いた個数は" + this.bombCount);
-        return this.bombCount;
+        return bombCount;
         
     }
 
     //　現在の爆弾の個数を更新
-    public void SetBombCount(int n)
+    public static void SetBombCount(int n)
     {
-        this.bombCount += n;
+        bombCount += n;
         //Debug.Log("現在の爆弾の手持ち個数は"+this.bombCount);
     }
 
