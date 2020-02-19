@@ -25,7 +25,12 @@ public class MapReader : MonoBehaviour
     public GameObject sharkmanPrefab;
     public GameObject hamburgermanPrefab;
     public GameObject playerPrefab;
-    
+    public GameObject item_blockthrough; // (11)
+    public GameObject item_bombup; // (12)
+    public GameObject item_fireup; // (13)
+    public GameObject item_speedup; // (14)
+    public GameObject stagedoor; // ゴール(21)
+
 
     // Start is called before the first frame update
     void Start()
@@ -123,13 +128,12 @@ public class MapReader : MonoBehaviour
 
         MakeHardBlock();
         MakeSoftBlock();
+        MakeItems();
         MakeApple();
         MakeBanana();
         MakeShark();
         Makehamburger();
         MakePlayer();
-
-        
     }
 
     // Update is called once per frame
@@ -167,10 +171,44 @@ public class MapReader : MonoBehaviour
                 if (csvDatas[i][j] == "1" || csvDatas[i][j] == "11" || csvDatas[i][j] == "12" || csvDatas[i][j] == "13" || csvDatas[i][j] == "14" || csvDatas[i][j] == "21")
                 {
                     GameObject soft = Instantiate(softblockPrefab) as GameObject;
-                    //soft.transform.position = new Vector3(j * 0.4f - 3.0f, i * (-0.4f) + 1.0f, 0);
                     soft.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
-                    //Debug.Log("csvDatas[1][1] の値は" + csvDatas[1][1]);
-                    //Debug.Log("csvDatas[1][1] の座標は" + soft.transform.position);
+                    
+                }
+                
+            }
+        }
+    }
+
+    public void MakeItems()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 17; j++)
+            {
+                if (csvDatas[i][j] == "11")
+                {
+                    GameObject blockthrough = Instantiate(item_blockthrough) as GameObject;
+                    blockthrough.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
+                }
+                if(csvDatas[i][j] == "12")
+                {
+                    GameObject bombup = Instantiate(item_bombup) as GameObject;
+                    bombup.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
+                }
+                if(csvDatas[i][j] == "13")
+                {
+                    GameObject fireup = Instantiate(item_fireup) as GameObject;
+                    fireup.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
+                }
+                if(csvDatas[i][j] == "14")
+                {
+                    GameObject speedup = Instantiate(item_speedup) as GameObject;
+                    speedup.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
+                }
+                if(csvDatas[i][j] == "21")
+                {
+                    GameObject goal = Instantiate(stagedoor) as GameObject;
+                    goal.transform.position = new Vector3(j * 0.6f - 4.3f, i * (-0.6f) + 3.7f, 0);
                 }
             }
         }

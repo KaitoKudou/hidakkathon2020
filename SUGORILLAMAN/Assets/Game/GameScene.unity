@@ -471,6 +471,16 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 2261471418634000341, guid: a6572f97ce5f14fb99805cf974157d09,
     type: 3}
+  item_blockthrough: {fileID: 4849999403259104914, guid: 0f98251275b0d478294eca7abbcedcac,
+    type: 3}
+  item_bombup: {fileID: 5501311205780221459, guid: 432cb9905dbb34f7d85cb6f2f8a92b38,
+    type: 3}
+  item_fireup: {fileID: 7906729400218719765, guid: 5ce2fa29711e54f2baa6963a6d4dd423,
+    type: 3}
+  item_speedup: {fileID: 7598082631446733231, guid: f7d03f9140fb9460c990dc2e2fe1cf71,
+    type: 3}
+  stagedoor: {fileID: 2391961135187544195, guid: a1832dcf4b80b43c793c7ad2bb06a770,
+    type: 3}
 --- !u!50 &1049423304
 Rigidbody2D:
   serializedVersion: 4
@@ -1223,6 +1233,11 @@ MonoBehaviour:
   sharkmanPrefab: {fileID: 0}
   hamburgermanPrefab: {fileID: 0}
   playerPrefab: {fileID: 0}
+  item_blockthrough: {fileID: 0}
+  item_bombup: {fileID: 0}
+  item_fireup: {fileID: 0}
+  item_speedup: {fileID: 0}
+  stagedoor: {fileID: 0}
 --- !u!1 &1884389470
 GameObject:
   m_ObjectHideFlags: 0
