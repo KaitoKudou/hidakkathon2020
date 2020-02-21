@@ -148,3 +148,15 @@ MonoBehaviour:
   layerMaskSoftBlock:
     serializedVersion: 2
     m_Bits: 256
+  layerMaskBlockthrough:
+    serializedVersion: 2
+    m_Bits: 1024
+  layerMaskBombup:
+    serializedVersion: 2
+    m_Bits: 2048
+  layerMaskFireup:
+    serializedVersion: 2
+    m_Bits: 4096
+  layerMaskSpeedup:
+    serializedVersion: 2
+    m_Bits: 8192

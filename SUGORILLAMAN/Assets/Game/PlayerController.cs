@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     //レイヤーマスク作成
     public LayerMask layerMaskHardBlock; // HardBlockレイヤーマスク
     public LayerMask layerMaskSoftBlock; // SoftBlockレイヤーマスク
+    public LayerMask layerMaskBlockthrough; // ブロックを通過できるアイテムのレイヤー
+    public LayerMask layerMaskBombup; // 爆弾の手持ちを増やすことができるアイテムのレイヤー
+    public LayerMask layerMaskFireup; // 爆風の範囲を広げることができるアイテムのレイヤー
+    public LayerMask layerMaskSpeedup; // プレイヤの移動速度を上げることができるアイテムのレイヤー
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +95,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                Debug.Log(hit.collider.gameObject.name);
                 Debug.Log("hardblock以外に衝突");
             }
 
@@ -106,6 +111,22 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Rayがsoftblockに当たった");
 
             }
+            else
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("softblock以外に衝突");
+            }
+
+        }
+        //もしRayにオブジェクトが衝突したら
+        //Rayが当たったオブジェクトがBlockthroughだったら
+        else if (Physics2D.Raycast(ray_up.origin, ray_up.direction, maxDistance, layerMaskBlockthrough.value))
+        {
+            if(hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log("RayがBlockthroughに当たった");
+            }
         }
         else
         {
@@ -119,6 +140,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("up");
 
     }
+
+
 
     public void DownButton()
     {

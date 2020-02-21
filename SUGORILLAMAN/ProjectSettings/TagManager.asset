@@ -17,10 +17,10 @@ TagManager:
   - 
   - soft
   - hard
-  - 
-  - 
-  - 
-  - 
+  - blockthrough
+  - bombup
+  - fireup
+  - speedup
   - 
   - 
   - 
